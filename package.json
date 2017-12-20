@@ -1,0 +1,24 @@
+{
+	"name": "rnmap",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest"
+	},
+	"dependencies": {
+		"react": "15.4.2",
+		"react-native": "0.42.0",
+		"react-native-baidu-map": "^0.6.0",
+		"react-navigation": "^1.0.0-beta.22"
+	},
+	"devDependencies": {
+		"babel-jest": "22.0.3",
+		"babel-preset-react-native": "4.0.0",
+		"jest": "22.0.3",
+		"react-test-renderer": "15.4.2"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
+}
