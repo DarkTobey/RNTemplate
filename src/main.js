@@ -3,7 +3,7 @@ import { Button, AppRegistry, StyleSheet, Text, View, TouchableHighlight } from 
 import { MapView, MapTypes, Geolocation } from 'react-native-baidu-map';
 import Dimensions from 'Dimensions';
 
-export default class BaiduMap extends React.Component {
+export default class Map extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -50,6 +50,8 @@ export default class BaiduMap extends React.Component {
                         console.warn("markerClick", JSON.stringify(e));
                     }}
                     onMapClick={(e) => {
+                        console.log(e);
+                        this.setState({ SelectedPosition: JSON.stringify(e) });
                         Geolocation.reverseGeoCode(e.latitude, e.longitude).then(data => {
                             this.setState({ SelectedPosition: JSON.stringify(data) });
                         })
