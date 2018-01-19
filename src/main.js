@@ -1,115 +1,38 @@
-import React from 'react';
-import { Button, AppRegistry, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
-import { MapView, MapTypes, Geolocation } from 'react-native-baidu-map';
-import Dimensions from 'Dimensions';
+import React, { Component } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View, FlatList, Platform, TextInput, Dimensions, Alert, NativeModules, NativeEventEmitter, ToastAndroid, Button } from 'react-native'
+import { Views } from './router/router';
 
-export default class Map extends React.Component {
-    constructor() {
-        super();
+export default class Main extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
-            zoom: 15,
-            trafficEnabled: false,
-            baiduHeatMapEnabled: false,
-            mapType: MapTypes.NORMAL,
-            markers: [],
-            SelectedPosition: '请选择',
-        };
+
+        }
+        this.nav = this.props.navigation.navigate;
     }
 
-    componentWillMount = () => {
-        this.getLoaction();
+    componentWillMount() {
     }
 
-    getLoaction = () => {
-        Geolocation.getCurrentPosition().then(data => {
-            this.setState({
-                zoom: 15,
-                marker: {
-                    title: '当前位置',
-                    latitude: data.latitude,
-                    longitude: data.longitude
-                },
-                center: {
-                    latitude: data.latitude,
-                    longitude: data.longitude,
-                    rand: Math.random()
-                }
-            });
-        }).catch(e => {
-            console.warn(e, 'error');
-        })
+    componentWillUnmount() {
     }
 
     render() {
         return (
-            <View style={styles.container}>
-                <MapView style={styles.map} zoom={this.state.zoom} mapType={this.state.mapType}
-                    center={this.state.center} marker={this.state.marker} markers={this.state.markers}
-                    trafficEnabled={this.state.trafficEnabled} baiduHeatMapEnabled={this.state.baiduHeatMapEnabled}
-                    onMarkerClick={(e) => {
-                        console.warn("markerClick", JSON.stringify(e));
-                    }}
-                    onMapClick={(e) => {
-                        console.log(e);
-                        this.setState({ SelectedPosition: JSON.stringify(e) });
-                        Geolocation.reverseGeoCode(e.latitude, e.longitude).then(data => {
-                            this.setState({ SelectedPosition: JSON.stringify(data) });
-                        })
-                    }}
-                >
-                </MapView>
-
-                <View style={styles.row}>
-                    <Button title="当前位置" onPress={() => {
-                        this.getLoaction();
-                    }} />
-
-                    <Button title="普通地图" onPress={() => {
-                        this.setState({
-                            mapType: MapTypes.NORMAL
-                        });
-                    }} />
-                    <Button title="卫星地图" onPress={() => {
-                        this.setState({
-                            mapType: MapTypes.SATELLITE
-                        });
-                    }} />
-
-                    <Button title="交通情况" onPress={() => {
-                        this.setState({
-                            trafficEnabled: !this.state.trafficEnabled
-                        });
-                    }} />
-
-                    <Button title="热力分布" onPress={() => {
-                        this.setState({
-                            baiduHeatMapEnabled: !this.state.baiduHeatMapEnabled
-                        });
-                    }} />
-                </View>
-
-                <View style={styles.row} >
-                    <Text>{this.state.SelectedPosition}</Text>
-                </View>
-            </View>
-        );
+            <View style={styles.content}>
+                {
+                    Views.map((item, index) => {
+                        return (<Button title={item.name} onPress={() => { this.nav(item.name) }} />)
+                    })
+                }
+            </View >
+        )
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height - 100,
-    },
-    row: {
-        marginTop: 10,
-        flexDirection: 'row',
-        height: 40
+const styles = {
+    content: {
+        flexDirection: 'column',
     }
-});
+}
+

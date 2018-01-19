@@ -3,8 +3,15 @@ import { AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Views } from './src/router/router';
 
-let screens = {};
+//首页
+let screens = {
+    'main': {
+        screen: require('./src/main').default,
+        navigationOptions: { header: null },
+    }
+};
 
+//注册其他路由
 Views.map((component) => {
     screens[component.name] = {
         screen: component.module.default,
