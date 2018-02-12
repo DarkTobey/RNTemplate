@@ -34,7 +34,7 @@ export default class Home extends React.Component {
                 }
             },
             {
-                text: '百度地图',
+                text: '高德地图',
                 icon: <Image source={require("../wwwroot/icon/qr_code_sel.png")} style={{ width: 50, height: 50 }} />,
                 onclick: () => {
                     this.nav("map", {});
@@ -77,6 +77,16 @@ export default class Home extends React.Component {
                     <View>
                         <Grid data={this.gridData} columnNum={4} isCarousel={false} carouselMaxRow={2} onClick={(item) => { item.onclick() }} />
                     </View>
+                </TabBar.Item>
+
+                <TabBar.Item title="列表" badge={0} icon={require('../wwwroot/icon/sort.png')} selectedIcon={require('../wwwroot/icon/sort_sel.png')}
+                    selected={this.state.selectedTab === '列表'} onPress={() => this.onChangeTab('列表')}  >
+                    <Text>列表</Text>
+                </TabBar.Item>
+
+                <TabBar.Item title="地图" badge={0} icon={require('../wwwroot/icon/activity.png')} selectedIcon={require('../wwwroot/icon/activity_sel.png')}
+                    selected={this.state.selectedTab === '地图'} onPress={() => this.onChangeTab('地图')}  >
+                    <Text>地图</Text>
                 </TabBar.Item>
 
                 <TabBar.Item title="我的" badge={0} icon={require('../wwwroot/icon/profile.png')} selectedIcon={require('../wwwroot/icon/profile_sel.png')}
