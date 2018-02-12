@@ -12,10 +12,10 @@ export default class Config {
     static AppID = "001";
     static AppVersion = 0;
     static AppVersionName = "0.0.0";
-    static AppCheckUpdateURL = "http://api.law.demo.jinhesoft.com/api/system/checkupdate";
+    static AppCheckUpdateURL = "http://106.14.186.95/api/system/checkupdate";
 
     //获取数据相关
-    static BaseURI = "http://api.law.demo.jinhesoft.com";
+    static BaseURI = "http://106.14.186.95";
     static ClientID = '123';
     static ClientSecret = '456';
 

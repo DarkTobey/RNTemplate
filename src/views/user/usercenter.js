@@ -21,7 +21,7 @@ export default class UserCenter extends React.Component {
     }
 
     getMe = () => {
-        Http.Get("/api/jhAuth/users/me", null, (d) => {
+        Http.Get("/api/user/me", null, (d) => {
             this.setState({ user: d });
         })
     }
@@ -45,7 +45,7 @@ export default class UserCenter extends React.Component {
                 <List renderHeader={() => '个人中心'}>
                     <List.Item thumb={<Image source={require('../../wwwroot/icon/account_sel.png')} style={styles.img} />} extra={this.state.user.UserName} >账号</List.Item>
                     <List.Item thumb={<Image source={require('../../wwwroot/icon/activity_sel.png')} style={styles.img} />} extra={this.state.user.NickName} >姓名</List.Item>
-                    <List.Item thumb={<Image source={require('../../wwwroot/icon/phone_sel.png')} style={styles.img} />} extra={this.state.user.PhoneNumber} >电话</List.Item>
+                    <List.Item thumb={<Image source={require('../../wwwroot/icon/phone_sel.png')} style={styles.img} />} extra={this.state.user.PhoneNO} >电话</List.Item>
                     <List.Item thumb={<Image source={require('../../wwwroot/icon/comment_sel.png')} style={styles.img} />} extra={this.state.user.Email} >邮箱</List.Item>
                 </List>
 
