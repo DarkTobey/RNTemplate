@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { Views } from './src/router/router';
+import { Routers } from './src/router/router';
 
 //首页
 let screens = {
@@ -12,7 +12,7 @@ let screens = {
 };
 
 //注册其他路由
-Views.map((component) => {
+Routers.map((component) => {
     screens[component.name] = {
         screen: component.module.default,
         navigationOptions: component.option
@@ -21,4 +21,4 @@ Views.map((component) => {
 
 export default App = StackNavigator(screens);
 
-AppRegistry.registerComponent('rnmap', () => App);
+AppRegistry.registerComponent('tobeyapp', () => App);

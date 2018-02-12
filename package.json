@@ -1,24 +1,29 @@
 {
-	"name": "rnmap",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"dependencies": {
-		"react": "15.4.2",
-		"react-native": "0.42.0",
-		"react-native-baidu-map": "^0.6.0",
-		"react-navigation": "^1.0.0-beta.22"
-	},
-	"devDependencies": {
-		"babel-jest": "22.0.3",
-		"babel-preset-react-native": "4.0.0",
-		"jest": "22.0.3",
-		"react-test-renderer": "15.4.2"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "tobeyapp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "antd-mobile": "^2.1.6",
+    "native-echarts": "^0.4.0",
+    "react": "16.2.0",
+    "react-native": "0.53.0",
+    "react-native-amap3d": "^0.12.1",
+    "react-native-camera": "^0.12.0",
+    "react-native-image-picker": "^0.26.7",
+    "react-navigation": "^1.0.3"
+  },
+  "devDependencies": {
+    "babel-jest": "22.2.2",
+    "babel-preset-react-native": "4.0.0",
+    "babel-plugin-import": "1.6.3",
+    "jest": "22.2.2",
+    "react-test-renderer": "16.2.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
 }
