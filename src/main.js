@@ -69,9 +69,8 @@ export default class Main extends React.Component {
                                 </View>)
                             } else {
                                 return (<View key={index} style={styles.wrapper}>
-                                    <Image source={x.img} style={styles.img} >
-                                        <Text style={styles.txt} onPress={() => { this.start() }} >开始使用</Text>
-                                    </Image>
+                                    <Image source={x.img} style={styles.img} />
+                                    <Text style={styles.txt} onPress={() => { this.start() }} >开始使用</Text>
                                 </View>)
                             }
                         })
@@ -101,12 +100,13 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     txt: {
+        position: 'absolute',
+        top: Dimensions.get("window").height / 10 * 8,
         width: Dimensions.get("window").width,
         height: 50,
         textAlign: 'center',
         fontSize: 20,
         fontWeight: 'bold',
         color: '#ffffff',
-        marginTop: Dimensions.get("window").height / 10 * 8,
     }
 });

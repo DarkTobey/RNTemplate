@@ -16,16 +16,15 @@ export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: '',
-            passWord: '',
+            userName: '1',
+            passWord: '1',
         };
     }
 
-    componentDidMount = () => {
-        this.setState({
-            userName: '1',
-            passWord: '1'
-        });
+    componentWillMount = () => {
+    }
+
+    componentWillUnmount = () => {
     }
 
     login = () => {
@@ -39,17 +38,22 @@ export default class Login extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={Config.LoginBg.img} style={styles.imgBg} />
-                <View style={styles.loginContent} >
-                    <List>
-                        <InputItem type="text" placeholder='请输入用户名' value={this.state.userName} onChange={(text) => this.setState({ "userName": text })} >账号
-                            </InputItem>
-                        <WhiteSpace size="lg" />
-                        <InputItem type="password" placeholder="请输入密码" value={this.state.passWord} onChange={(text) => this.setState({ "passWord": text })} >密码
-                            </InputItem>
-                    </List>
-                    <Button type="primary" inline style={{ marginTop: 15, marginHorizontal: 5 }} onPressIn={() => this.login()}>登录</Button>
+                <Image source={Config.LoginBg.img} style={styles.bg} />
+
+                <View style={styles.logo}>
+                    <Image source={Config.Logo.img} style={styles.logoimg} />
                 </View>
+
+                <View style={styles.login}>
+                    <View style={styles.txt}>
+                        <InputItem type="text" placeholder='请输入用户名' value={this.state.userName} onChange={(text) => this.setState({ "userName": text })} />
+                    </View>
+                    <View style={styles.txt}>
+                        <InputItem type="password" placeholder="请输入密码" value={this.state.passWord} onChange={(text) => this.setState({ "passWord": text })} />
+                    </View>
+                </View>
+
+                <Button type="primary" style={styles.btn} inline onPressIn={() => this.login()}>登录</Button>
             </View>
         );
     }
@@ -59,23 +63,32 @@ var styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    imgBg: {
+    bg: {
         position: 'absolute',
         top: 0,
         left: 0,
-        zIndex: -1,
         flex: 1,
         width: Dimensions.get("window").width,
         height: Dimensions.get("window").height,
         resizeMode: 'cover',
     },
-    loginContent: {
-        marginTop: 230,
-        marginHorizontal: 20,
-        padding: 10,
-        borderRadius: 5,
-        borderColor: 'white',
-        backgroundColor: "white",
-        opacity: 1,
+    logo: {
+        alignItems: 'center',
+        marginTop: 100,
+    },
+    logoimg: {
+        width: 100,
+        height: 100,
+    },
+    login: {
+        marginTop: 50,
+    },
+    txt: {
+        marginRight: 10,
+        marginBottom: 20,
+    },
+    btn: {
+        marginHorizontal: 10,
+        marginTop: 10.
     }
 })

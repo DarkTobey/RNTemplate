@@ -26,6 +26,7 @@ export default class Config {
         { img: require('../wwwroot/image/load3.jpg') },
     ];
 
-    //登录背景
+    //背景和logo
     static LoginBg = { img: require('../wwwroot/image/login.jpg') };
+    static Logo = { img: require('../wwwroot/image/logo.png') };
 }
