@@ -205,10 +205,10 @@ export default class Http {
 
     static CheckUpdate(showAlert) {
         NativeModules.MyRNModule.getVersionInfo((d) => {
-            Config.AppVersion = d.versionCode;
+            Config.AppVersionCode = d.versionCode;
             Config.AppVersionName = d.versionName;
 
-            let url = Config.AppCheckUpdateURL + "?appCode=" + Config.AppID + "&appVersion=" + d.versionCode;
+            let url = Config.AppCheckUpdateURL + "?appId=" + Config.AppID + "&appVersionCode=" + d.versionCode;
             let option = {
                 method: 'GET',
                 headers: {
@@ -233,7 +233,7 @@ export default class Http {
                     Toast.fail("获取数据失败," + result.Message, 4, null, false);
                     return;
                 }
-                Modal.alert('发现新版本 ver:' + result.VersionName, "更新说明:" + result.UpdateContent, [
+                Modal.alert('发现新版本 ver:' + result.VersionName, "更新说明:" + result.UpdateNote, [
                     { text: '立即更新', onPress: () => { NativeModules.upgrade.upgrade(result.DownloadUrl) } },
                     { text: '取消', onPress: () => { } },
                 ]);

@@ -10,9 +10,9 @@ export default class Config {
 
     //更新应用相关
     static AppID = "001";
-    static AppVersion = 0;
+    static AppVersionCode = 0;
     static AppVersionName = "0.0.0";
-    static AppCheckUpdateURL = "http://106.14.186.95/api/system/checkupdate";
+    static AppCheckUpdateURL = "http://106.14.186.95/api/system/mobile/checkupdate";
 
     //获取数据相关
     static BaseURI = "http://106.14.186.95";

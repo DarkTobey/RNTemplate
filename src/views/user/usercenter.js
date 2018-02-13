@@ -50,7 +50,7 @@ export default class UserCenter extends React.Component {
                 </List>
 
                 <List renderHeader={() => '检查更新'}>
-                    <List.Item thumb={<Image source={require('../../wwwroot/icon/notice_sel.png')} style={styles.img} />} extra={"ver:" + Config.AppVersionName} arrow="horizontal" onClick={() => { /*Http.CheckUpdate(true);*/ }}>检查更新</List.Item>
+                    <List.Item thumb={<Image source={require('../../wwwroot/icon/notice_sel.png')} style={styles.img} />} extra={"ver:" + Config.AppVersionName} arrow="horizontal" onClick={() => { Http.CheckUpdate(true); }}>检查更新</List.Item>
                 </List>
 
                 <List renderHeader={() => '安全退出'} >
