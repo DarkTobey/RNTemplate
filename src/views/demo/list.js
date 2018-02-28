@@ -15,7 +15,6 @@ export default class ListPage extends React.Component {
             total: 10,
             dataList: [],
             refreshing: false,
-            isEnd: false,
         };
 
         this.nav = this.props.navigation.navigate;
@@ -23,6 +22,17 @@ export default class ListPage extends React.Component {
 
     componentDidMount = () => {
         this.getDataList(this.state.key);
+    }
+
+    startSearch = (key) => {
+        this.setState({
+            start: 0,
+            length: 10,
+            total: 10,
+            key: key,
+            dataList: [],
+        })
+        this.getDataList(key)
     }
 
     getDataList = (key) => {
@@ -44,36 +54,29 @@ export default class ListPage extends React.Component {
         this.setState({
             start: this.state.start + this.state.length,
             total: d.Total,
-            dataList: d.Rows.concat(this.state.dataList)
+            dataList: this.state.dataList.concat(d.Rows)
         });
+    }
+
+    refreshDataList = () => {
+        Toast.info("刷新了数据", 2, null, false);
     }
 
     onRefresh = () => {
         this.setState({ refreshing: true });
-        this.getDataList(this.state.key);
+        this.refreshDataList(this.state.key);
         this.setState({ refreshing: false });
     }
 
     onEndReached = () => {
-        //Toast.info("到底了", 2, null, false);
-    }
-
-    startSearch = (key) => {
-        this.setState({
-            start: 0,
-            length: 10,
-            total: 10,
-            key: key,
-            dataList: [],
-        })
-        this.getDataList(key)
+        this.getDataList(this.state.key);
     }
 
     render() {
         return (
             <View style={styles.listContainer}  >
-                <FlatList data={this.state.dataList} refreshing={this.state.refreshing} onRefresh={this.onRefresh} onEndReached={this.onEndReached}
-                    onEndReachedThreshold={0.1} ListFooterComponent={() => { return <Text></Text>; }}
+                <FlatList data={this.state.dataList} onEndReached={this.onEndReached} onEndReachedThreshold={0.1}
+                    onRefresh={this.onRefresh} refreshing={this.state.refreshing}
                     keyExtractor={(item, index) => { return item.ID }}
                     renderItem={({ item, index }) => {
                         return (

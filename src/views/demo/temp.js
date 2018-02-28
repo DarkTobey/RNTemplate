@@ -12,6 +12,14 @@ export default class Temp extends React.Component {
         };
 
         this.nav = this.props.navigation.navigate;
+
+		// 获取参数
+        //this.ID = this.props.navigation.state.params.ID;
+
+        // 通过代码使页面返回
+        // this.props.navigation.state.params.callback(code);
+        // this.props.navigation.goBack();
+		
     }
 
     componentWillMount = () => {
