@@ -37,7 +37,7 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}  >
                 <Image source={Config.LoginBg.img} style={styles.bg} />
 
                 <View style={styles.logo}>
@@ -54,14 +54,15 @@ export default class Login extends React.Component {
                 </View>
 
                 <Button type="primary" style={styles.btn} inline onPressIn={() => this.login()}>登录</Button>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }
 
 var styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        justifyContent: 'center',
     },
     bg: {
         position: 'absolute',

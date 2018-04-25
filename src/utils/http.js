@@ -54,7 +54,9 @@ export default class Http {
             } catch (e) {
                 Toast.fail("服务器返回值异常!", 2, null, false);
             }
-        }).done();
+        }).catch((err) => {
+
+        });
     }
 
     static LogOut(callback) {
@@ -98,7 +100,9 @@ export default class Http {
                 return;
             }
             callback(result);
-        }).done();
+        }).catch((err) => {
+
+        });
     }
 
     static PostAsJson(url, params, callback) {
@@ -127,7 +131,9 @@ export default class Http {
                 return;
             }
             callback(result);
-        }).done();
+        }).catch((err) => {
+
+        });
     }
 
     static PostAsFormData(url, params, callback) {
@@ -161,7 +167,9 @@ export default class Http {
                 return;
             }
             callback(result);
-        }).done();
+        }).catch((err) => {
+
+        });
     }
 
     static UploadImg(url, images, callback) {
@@ -200,7 +208,9 @@ export default class Http {
                 return;
             }
             callback(result);
-        }).done();
+        }).catch((err) => {
+
+        });
     }
 
     static CheckUpdate(showAlert) {
@@ -237,7 +247,9 @@ export default class Http {
                     { text: '立即更新', onPress: () => { NativeModules.upgrade.upgrade(result.DownloadUrl) } },
                     { text: '取消', onPress: () => { } },
                 ]);
-            }).done();
+            }).catch((err) => {
+
+            });
         });
     }
 
