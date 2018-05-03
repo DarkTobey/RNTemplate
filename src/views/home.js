@@ -72,8 +72,6 @@ export default class Home extends React.Component {
     }
 
     getLocation = () => {
-        console.log("do");
-
         Location.getCurrentPosition().then((d) => {
             console.log(d);
         })

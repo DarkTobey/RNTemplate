@@ -3,6 +3,18 @@ import { AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Routers } from './src/router/router';
 
+//获取当前路由
+function getCurrentRouteName(navigationState) {
+    if (!navigationState) {
+        return null;
+    }
+    let route = navigationState.routes[navigationState.index];
+    if (route.routes) {
+        return getCurrentRouteName(route);
+    }
+    return route.routeName;
+}
+
 //首页
 let screens = {
     'main': {
@@ -19,6 +31,17 @@ Routers.map((component) => {
     };
 });
 
-export default App = StackNavigator(screens);
+const AppNavigator = StackNavigator(screens);
+export default App = () => (
+    <AppNavigator onNavigationStateChange={(prevState, currentState) => {
+        const currentScreen = getCurrentRouteName(currentState);
+        const prevScreen = getCurrentRouteName(prevState);
 
+        console.log("currentScreen", currentScreen);
+        console.log("prevScreen", prevScreen);
+    }}
+    />
+);
+
+//注册应用
 AppRegistry.registerComponent('tobeyapp', () => App);
