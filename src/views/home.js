@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight, Image, Alert } from 'react-native';
 import { List, Button, TabBar, Grid } from 'antd-mobile';
 import UserCenter from "./user/usercenter";
+import Location from "../utils/location";
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -58,6 +59,7 @@ export default class Home extends React.Component {
     }
 
     componentWillMount = () => {
+        this.getLocation();
     }
 
     componentWillUnmount = () => {
@@ -67,6 +69,15 @@ export default class Home extends React.Component {
         this.setState({
             selectedTab: tabName,
         });
+    }
+
+    getLocation = () => {
+        console.log("do");
+
+        Location.getCurrentPosition().then((d) => {
+            console.log(d);
+        })
+
     }
 
     render() {

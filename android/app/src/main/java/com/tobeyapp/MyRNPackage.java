@@ -14,7 +14,8 @@ public class MyRNPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         //创建原生组件
         return Arrays.<NativeModule>asList(
-                new com.tobeyapp.MyRNModule(reactContext)
+                new MyRNModule(reactContext),
+                new LocationModule(reactContext)
         );
     }
 

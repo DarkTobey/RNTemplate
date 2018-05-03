@@ -39,23 +39,19 @@ export default class Http {
         };
 
         fetch(this.BaseURL + url, option).then((response) => response.text()).then((responseText) => {
-            try {
-                console.log("token", responseText);
-
-                let data = JSON.parse(responseText);
-                if (data.access_token == null) {
-                    Toast.fail("用户名或密码不正确!", 2, null, false);
-                    return;
-                }
-                _this.AccessToken = data.access_token;
-                Storage.Save("UserInfo", data).then(() => {
+            console.log("token", responseText);
+            let data = JSON.parse(responseText);
+            if (data.access_token == null) {
+                Toast.fail("用户名或密码不正确!", 2, null, false);
+                return;
+            }
+            _this.AccessToken = data.access_token;
+            Storage.Save("UserInfo", data).then(() => {
+                Storage.Save("LoginInfo", { userName: userName, passWord: passWord }).then(() => {
                     callback();
                 });
-            } catch (e) {
-                Toast.fail("服务器返回值异常!", 2, null, false);
-            }
+            });
         }).catch((err) => {
-
         });
     }
 
@@ -91,17 +87,12 @@ export default class Http {
                 return;
             }
             var result = JSON.parse(responseText);
-            if (result == null) {
-                Toast.fail("数据为空", 2, null, false);
-                return;
-            }
-            if (result.Code == 500) {
+            if (result != null && result.Code == 500) {
                 Toast.fail("获取数据失败," + result.Message, 2, null, false);
                 return;
             }
             callback(result);
         }).catch((err) => {
-
         });
     }
 
@@ -122,17 +113,12 @@ export default class Http {
                 return;
             }
             var result = JSON.parse(responseText);
-            if (result == null) {
-                Toast.fail("数据为空", 2, null, false);
-                return;
-            }
-            if (result.Code == 500) {
+            if (result != null && result.Code == 500) {
                 Toast.fail("获取数据失败," + result.Message, 2, null, false);
                 return;
             }
             callback(result);
         }).catch((err) => {
-
         });
     }
 
@@ -158,17 +144,12 @@ export default class Http {
                 return;
             }
             var result = JSON.parse(responseText);
-            if (result == null) {
-                Toast.fail("数据为空", 2, null, false);
-                return;
-            }
-            if (result.Code == 500) {
+            if (result != null && result.Code == 500) {
                 Toast.fail("获取数据失败," + result.Message, 2, null, false);
                 return;
             }
             callback(result);
         }).catch((err) => {
-
         });
     }
 
@@ -194,22 +175,17 @@ export default class Http {
         };
 
         fetch(this.BaseURL + url, option).then((response) => response.text()).then((responseText) => {
-            this.Log("response from " + url, responseText);
+            this.Log("response from " + url + " " + responseText);
             if (responseText == '') {
                 return;
             }
             var result = JSON.parse(responseText);
-            if (result == null) {
-                Toast.fail("数据为空", 2, null, false);
-                return;
-            }
-            if (result.Code == 500) {
-                Toast.fail("获取数据失败," + result.Message, 2, null, false);
+            if (result != null && result.Code == 500) {
+                Toast.fail("获取数据失败," + result.Message, 3, null, false);
                 return;
             }
             callback(result);
         }).catch((err) => {
-
         });
     }
 
@@ -218,7 +194,7 @@ export default class Http {
             Config.AppVersionCode = d.versionCode;
             Config.AppVersionName = d.versionName;
 
-            let url = Config.AppCheckUpdateURL + "?appId=" + Config.AppID + "&appVersionCode=" + d.versionCode;
+            let url = Config.AppCheckUpdateURL + "?appCode=" + Config.AppID + "&appVersion=" + d.versionCode;
             let option = {
                 method: 'GET',
                 headers: {
@@ -243,12 +219,11 @@ export default class Http {
                     Toast.fail("获取数据失败," + result.Message, 4, null, false);
                     return;
                 }
-                Modal.alert('发现新版本 ver:' + result.VersionName, "更新说明:" + result.UpdateNote, [
+                Modal.alert('发现新版本 ver:' + result.VersionName, "更新说明:" + result.UpdateContent, [
                     { text: '立即更新', onPress: () => { NativeModules.upgrade.upgrade(result.DownloadUrl) } },
                     { text: '取消', onPress: () => { } },
                 ]);
             }).catch((err) => {
-
             });
         });
     }
