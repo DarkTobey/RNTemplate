@@ -34,12 +34,14 @@
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
-        android:icon="@drawable/logo3"
+        android:icon="@drawable/logo2"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
         <service android:name="com.amap.api.location.APSService" />
         <service android:name="android_upgrade.DownloadService" />
+        <service android:name="headless_js.MyTaskService" />
+        <receiver android:name="headless_js.MyReceiver" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -49,7 +51,7 @@
             android:name=".MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

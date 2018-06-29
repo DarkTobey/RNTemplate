@@ -9,20 +9,27 @@ export default class UserCenter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {}
+            user: {},
         };
+
+        this.nav = this.props.navigation.navigate;
     }
 
     componentWillMount = () => {
+        console.log("user 构建");
         this.getMe();
     }
 
     componentWillUnmount = () => {
+        console.log("user 卸载");
     }
 
     getMe = () => {
         Http.Get("/api/user/me", null, (d) => {
-            this.setState({ user: d });
+            this.setState({
+                user: d,
+            });
+            Config.CurrentUser = d;
         })
     }
 
@@ -41,22 +48,19 @@ export default class UserCenter extends React.Component {
 
     render() {
         return (
-            <ScrollView style={styles.container} automaticallyAdjustContentInsets={false} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}  >
-                <List renderHeader={() => '个人中心'}>
-                    <List.Item thumb={<Image source={require('../../wwwroot/icon/account_sel.png')} style={styles.img} />} extra={this.state.user.UserName} >账号</List.Item>
-                    <List.Item thumb={<Image source={require('../../wwwroot/icon/activity_sel.png')} style={styles.img} />} extra={this.state.user.NickName} >姓名</List.Item>
-                    <List.Item thumb={<Image source={require('../../wwwroot/icon/phone_sel.png')} style={styles.img} />} extra={this.state.user.PhoneNO} >电话</List.Item>
-                    <List.Item thumb={<Image source={require('../../wwwroot/icon/comment_sel.png')} style={styles.img} />} extra={this.state.user.Email} >邮箱</List.Item>
+            <ScrollView style={styles.container} >
+                <List renderHeader={() => '个人信息'}>
+                    <List.Item wrap thumb={<Image source={require('../../wwwroot/iphone/1.png')} style={styles.img} />} extra={this.state.user.UserName} >账号</List.Item>
+                    <List.Item wrap thumb={<Image source={require('../../wwwroot/iphone/11.png')} style={styles.img} />} extra={this.state.user.NickName} >姓名</List.Item>
+                    <List.Item wrap thumb={<Image source={require('../../wwwroot/iphone/15.png')} style={styles.img} />} extra={this.state.user.PhoneNumber} >电话</List.Item>
+                    <List.Item wrap thumb={<Image source={require('../../wwwroot/iphone/16.png')} style={styles.img} />} extra={this.state.user.Email} >邮箱</List.Item>
                 </List>
 
-                <List renderHeader={() => '检查更新'}>
-                    <List.Item thumb={<Image source={require('../../wwwroot/icon/notice_sel.png')} style={styles.img} />} extra={"ver:" + Config.AppVersionName} arrow="horizontal" onClick={() => { Http.CheckUpdate(true); }}>检查更新</List.Item>
+                <List renderHeader={() => '系统安全'}>
+                    <List.Item thumb={<Image source={require('../../wwwroot/iphone/37.png')} style={styles.img} />} arrow="horizontal" extra={"ver:" + Config.AppVersionName} onClick={() => { Http.CheckUpdate(true); }}>检查更新</List.Item>
+                    <List.Item thumb={<Image source={require('../../wwwroot/iphone/46.png')} style={styles.img} />} arrow="horizontal" extra="退出" onClick={() => { this.logOut() }}>安全退出</List.Item>
                 </List>
-
-                <List renderHeader={() => '安全退出'} >
-                    <Button type="primary" onClick={() => this.logOut()} >退出登录</Button>
-                </List>
-            </ScrollView >
+            </ScrollView>
         );
     }
 
@@ -64,13 +68,12 @@ export default class UserCenter extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#f5f5f9',
+        backgroundColor: Config.BackgroundColor,
         paddingHorizontal: 3
     },
     img: {
         width: 25,
         height: 25,
-        marginRight: 8
+        marginRight: 10
     },
 });

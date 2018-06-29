@@ -7,14 +7,21 @@
     "test": "jest"
   },
   "dependencies": {
-    "antd-mobile": "^2.1.6",
-    "native-echarts": "^0.4.0",
+    "antd-mobile": "2.1.6",
+    "minutes-seconds-milliseconds": "1.0.3",
+    "native-echarts": "0.4.0",
     "react": "16.2.0",
     "react-native": "0.53.0",
-    "react-native-amap3d": "^0.12.1",
-    "react-native-camera": "^0.12.0",
-    "react-native-image-picker": "^0.26.7",
-    "react-navigation": "^1.0.3"
+    "react-native-amap3d": "0.12.1",
+    "react-native-calendars": "1.19.3",
+    "react-native-camera": "0.12.0",
+    "react-native-htmlview": "0.12.1",
+    "react-native-image-picker": "0.26.7",
+    "react-native-star-rating": "1.0.9",
+    "react-native-textinput-effects": "0.4.2",
+    "react-native-timeline-listview": "0.2.3",
+    "react-native-vector-icons": "4.6.0",
+    "react-navigation": "1.0.3"
   },
   "devDependencies": {
     "babel-jest": "22.2.2",

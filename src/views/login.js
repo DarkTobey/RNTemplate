@@ -1,33 +1,58 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, KeyboardAvoidingView } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, Dimensions, Platform, KeyboardAvoidingView, TouchableOpacity, CheckBox } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { Toast, Button, Card, WingBlank, WhiteSpace, List, InputItem } from 'antd-mobile';
+import { Toast, Button, Card, WingBlank, WhiteSpace, List, InputItem, Modal } from 'antd-mobile';
+
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { Hideo, Sae, Jiro, Kohana } from 'react-native-textinput-effects';
+
 import Http from "../utils/http";
 import Config from "../utils/config";
+import Storage from "../utils/storage";
 
-const toHome = NavigationActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({ routeName: 'home' })
-    ]
-});
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: '1',
-            passWord: '1',
+            userName: '',
+            passWord: '',
+
+            autoLogin: true,
+            modalContactUs: false,
+            modalAboutUs: false,
         };
     }
 
     componentWillMount = () => {
+        this.loginInfo();
     }
 
-    componentWillUnmount = () => {
+    loginInfo = () => {
+        Storage.Get("LoginInfo").then((data) => {
+            console.log(data);
+            if (data != null) {
+                let info = JSON.parse(data);
+                this.setState(info);
+                return;
+            }
+            this.setState({
+                userName: Config.TestUserName,
+                passWord: Config.TestPassword,
+            });
+        })
     }
 
     login = () => {
+        let toHome = NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: 'home' })
+            ]
+        });
+
         Toast.loading("", 0, null, true)
         Http.Login(this.state.userName, this.state.passWord, () => {
             Toast.hide();
@@ -35,61 +60,173 @@ export default class Login extends React.Component {
         });
     }
 
+    setAutoLogin = () => {
+        this.setState({
+            autoLogin: !this.state.autoLogin
+        })
+    }
+
+    forgetPassword = () => {
+
+    }
+
     render() {
         return (
-            <KeyboardAvoidingView style={styles.container}  >
+            <View style={{ flex: 1 }}>
                 <Image source={Config.LoginBg.img} style={styles.bg} />
 
-                <View style={styles.logo}>
-                    <Image source={Config.Logo.img} style={styles.logoimg} />
+                <View style={styles.logo} >
+                    {/* <Image source={Config.Logo.img} style={styles.logo} /> */}
                 </View>
 
-                <View style={styles.login}>
-                    <View style={styles.txt}>
-                        <InputItem type="text" placeholder='请输入用户名' value={this.state.userName} onChange={(text) => this.setState({ "userName": text })} />
-                    </View>
-                    <View style={styles.txt}>
-                        <InputItem type="password" placeholder="请输入密码" value={this.state.passWord} onChange={(text) => this.setState({ "passWord": text })} />
-                    </View>
+                <View style={styles.loginContent}>
+                    <KeyboardAvoidingView>
+                        <View style={styles.inputItem}>
+                            <Hideo
+                                placeholder="账户"
+
+                                label="账户"
+                                iconClass={FontAwesomeIcon}
+                                iconName={'user'}
+                                iconColor={'white'}
+                                iconBackgroundColor={'#B4B4AA'}
+
+                                inputStyle={{ color: '#464949' }}
+                                value={this.state.userName}
+                                onChange={(event) => { this.setState({ userName: event.nativeEvent.text }) }}
+                            />
+                        </View>
+
+                        <View style={styles.inputItem}>
+                            <Hideo
+                                placeholder="密码"
+
+                                label="密码"
+                                iconClass={FontAwesomeIcon}
+                                iconName={'lock'}
+                                iconColor={'white'}
+                                iconBackgroundColor={'#B4B4AA'}
+
+                                inputStyle={{ color: '#464949' }}
+                                secureTextEntry={true}
+                                value={this.state.passWord}
+                                onChange={(event) => { this.setState({ passWord: event.nativeEvent.text }) }}
+                            />
+                        </View>
+
+                        <TouchableOpacity activeOpacity={0.5} onPress={() => { this.login() }}>
+                            <View style={styles.loginBtnView}>
+                                <Text style={styles.loginBtn}>登录</Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        <View style={styles.tips}>
+                            <TouchableOpacity activeOpacity={0.5} onPress={this.setAutoLogin}>
+                                <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                                    <CheckBox value={this.state.autoLogin} />
+                                    <Text style={styles.txt}>自动登录</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={0.5} onPress={this.forgetPassword}>
+                                <View>
+                                    <Text style={styles.txt}>忘记密码?</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </KeyboardAvoidingView>
                 </View>
 
-                <Button type="primary" style={styles.btn} inline onPressIn={() => this.login()}>登录</Button>
-            </KeyboardAvoidingView>
+                <View style={styles.service}>
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => { this.setState({ modalContactUs: true }) }}>
+                        <View>
+                            <Text style={styles.txt}>联系客服</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <Text style={styles.txt}>  |  </Text>
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => { this.setState({ modalAboutUs: true }) }}>
+                        <View >
+                            <Text style={styles.txt}>关于我们</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+
+                <Modal visible={this.state.modalContactUs} transparent title="联系我们" footer={[{ text: '关闭', onPress: () => { this.setState({ modalContactUs: false }) } }]} >
+                    <View style={styles.modal}>
+                        <Text>电话：110</Text>
+                    </View>
+                </Modal>
+
+                <Modal visible={this.state.modalAboutUs} transparent title="关于我们" footer={[{ text: '关闭', onPress: () => { this.setState({ modalAboutUs: false }) } }]}>
+                    <View style={styles.modal}>
+                        <Text>技术支持：金禾软件</Text>
+                    </View>
+                </Modal>
+
+            </View >
         );
     }
 }
 
 var styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-    },
     bg: {
         position: 'absolute',
         top: 0,
         left: 0,
-        flex: 1,
-        width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height,
+        zIndex: -1,
+        width: width,
+        height: height,
         resizeMode: 'cover',
     },
     logo: {
+        justifyContent: "center",
         alignItems: 'center',
-        marginTop: 100,
+        marginTop: height / 15
     },
-    logoimg: {
-        width: 100,
-        height: 100,
+    loginContent: {
+        flex: 1,
+        justifyContent: "center",
+        // marginTop: height / 8,
+        paddingHorizontal: 20,
     },
-    login: {
-        marginTop: 50,
+    inputItem: {
+        height: 45,
+        marginTop: 15,
+        borderRadius: 5,
+    },
+    loginBtnView: {
+        width: width - 40,
+        height: 45,
+        marginTop: 15,
+        backgroundColor: '#3899FF',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+    },
+    loginBtn: {
+        fontSize: 18,
+        color: 'white',
+    },
+    tips: {
+        flexDirection: "row",
+        justifyContent: 'space-between',
+        alignItems: "center",
+        padding: 5,
+    },
+    service: {
+        position: 'absolute',
+        left: 0,
+        bottom: 10,
+        width: width,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: 'center',
     },
     txt: {
-        marginRight: 10,
-        marginBottom: 20,
+        fontSize: 14,
+        color: 'white',
     },
-    btn: {
-        marginHorizontal: 10,
-        marginTop: 10.
+    modal: {
+        padding: 20,
     }
 })

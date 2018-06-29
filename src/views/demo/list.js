@@ -5,6 +5,8 @@ import { Button, Card, Toast } from 'antd-mobile';
 import Http from "../../utils/http";
 import Config from "../../utils/config";
 
+import SearchBar from "../components/searchbar";
+
 export default class ListPage extends React.Component {
     constructor(props) {
         super(props);
@@ -20,8 +22,11 @@ export default class ListPage extends React.Component {
         this.nav = this.props.navigation.navigate;
     }
 
-    componentDidMount = () => {
+    componentWillMount = () => {
         this.getDataList(this.state.key);
+    }
+
+    componentWillUnmount = () => {
     }
 
     startSearch = (key) => {
@@ -31,8 +36,9 @@ export default class ListPage extends React.Component {
             total: 10,
             key: key,
             dataList: [],
+        }, () => {
+            this.getDataList(key)
         })
-        this.getDataList(key)
     }
 
     getDataList = (key) => {
@@ -54,7 +60,8 @@ export default class ListPage extends React.Component {
         this.setState({
             start: this.state.start + this.state.length,
             total: d.Total,
-            dataList: this.state.dataList.concat(d.Rows)
+            dataList: this.state.dataList.concat(d.Rows),
+            key: key,
         });
     }
 
@@ -69,24 +76,26 @@ export default class ListPage extends React.Component {
     }
 
     onEndReached = () => {
+        if (this.state.start == 0) return;
         this.getDataList(this.state.key);
     }
 
     render() {
         return (
             <View style={styles.listContainer}  >
+                <SearchBar placeholder="关键字" onSubmit={(key) => { this.startSearch(key) }} />
                 <FlatList data={this.state.dataList} onEndReached={this.onEndReached} onEndReachedThreshold={0.1}
                     onRefresh={this.onRefresh} refreshing={this.state.refreshing}
                     keyExtractor={(item, index) => { return item.ID }}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity key={index} activeOpacity={1} onPress={() => { this.nav("detail", { ID: item.ID }) }}>
-                                <Card style={styles.cardContainer} >
-                                    <Card.Header title={item.Title} />
-                                    <Card.Body>
+                            <TouchableOpacity style={styles.cardContainer} key={index} activeOpacity={0.5} onPress={() => { this.nav("detail", { ID: item.ID }) }}>
+                                <Card>
+                                    <Card.Header title={item.Title} extra="副标题" thumb={<Image source={require('../../wwwroot/image/avatar.jpg')} style={styles.cardAvatar} />} />
+                                    <Card.Body style={styles.cardBody}>
                                         <Text>{item.Body}</Text>
                                     </Card.Body>
-                                    <Card.Footer content={item.Note} />
+                                    <Card.Footer content={item.Note} extra="其他信息" />
                                 </Card>
                             </TouchableOpacity>
                         )
@@ -99,11 +108,19 @@ export default class ListPage extends React.Component {
 
 const styles = StyleSheet.create({
     listContainer: {
-        flex: 1,
-        backgroundColor: '#f5f5f9',
+        flex:1,
+        backgroundColor: Config.BackgroundColor,
         paddingHorizontal: 8,
     },
     cardContainer: {
         marginBottom: 10
-    }
+    },
+    cardAvatar: {
+        width: 25,
+        height: 25,
+        marginRight: 10
+    },
+    cardBody: {
+        paddingHorizontal: 15,
+    },
 });

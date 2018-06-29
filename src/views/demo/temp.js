@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { Accordion, ImagePicker, Checkbox, List, Button, Tabs, DatePicker, Picker, InputItem, TextareaItem, Toast, Tag, Modal } from 'antd-mobile';
 import Http from "../../utils/http";
@@ -13,26 +13,27 @@ export default class Temp extends React.Component {
 
         this.nav = this.props.navigation.navigate;
 
-		// 获取参数
+        // 获取参数
         //this.ID = this.props.navigation.state.params.ID;
 
         // 通过代码使页面返回
         // this.props.navigation.state.params.callback(code);
         // this.props.navigation.goBack();
-		
     }
 
     componentWillMount = () => {
+        console.log("构建");
     }
 
     componentWillUnmount = () => {
+        console.log("卸载");
     }
 
     render() {
         return (
-            <View>
+            <ScrollView>
                 <Text>模板页</Text>
-            </View>
+            </ScrollView>
         );
     }
 }

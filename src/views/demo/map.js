@@ -2,16 +2,17 @@ import React from 'react';
 import { StyleSheet, Text, View, Dimensions, ViewStyle } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { Button, Popover, Modal, List, } from 'antd-mobile';
+import { MapView } from 'react-native-amap3d';
+
 import Http from "../../utils/http";
 import Config from "../../utils/config";
 import Location from "../../utils/location";
-import { MapView } from 'react-native-amap3d'
 
 export default class Map extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            mapType: 'satellite',
+            mapType: 'standard',
             mapCenter: {
                 longitude: 113.981718,
                 latitude: 22.542449
@@ -28,7 +29,6 @@ export default class Map extends React.Component {
             { label: "夜间", callback: () => { this.changeMapType("night") } },
             { label: "公交", callback: () => { this.changeMapType("bus") } },
         ];
-
     }
 
     componentWillMount = () => {
@@ -44,7 +44,6 @@ export default class Map extends React.Component {
             this.setState({
                 address: d.address,
                 mapCenter: {
-
                     longitude: d.longitude,
                     latitude: d.latitude
                 },
@@ -69,8 +68,8 @@ export default class Map extends React.Component {
 
     back = (data) => {
         // 通过代码使页面返回
-        this.props.navigation.state.params.callback(data);
         this.props.navigation.goBack();
+        this.props.navigation.state.params.callback(data);
     }
 
     render() {

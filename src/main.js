@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity, Platform, Dimensions, NativeModules, NativeEventEmitter } from 'react-native'
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { Carousel, Button } from 'antd-mobile';
+
 import Storage from "./utils/storage";
 import Http from "./utils/http";
 import Config from "./utils/config";

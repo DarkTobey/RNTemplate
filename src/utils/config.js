@@ -19,6 +19,10 @@ export default class Config {
     static ClientID = '123';
     static ClientSecret = '456';
 
+    //后天任务相关
+    static IsRunTask = false;
+    static TaskIntervalTime = 1 * 60 * 1000;
+
     //引导页面图片
     static LoadPage = [
         { img: require('../wwwroot/image/load1.jpg') },
@@ -27,6 +31,18 @@ export default class Config {
     ];
 
     //背景和logo
-    static LoginBg = { img: require('../wwwroot/image/login.jpg') };
     static Logo = { img: require('../wwwroot/image/logo.png') };
+    static LoginBg = { img: require('../wwwroot/image/login.jpg') };
+
+    //测试用的用户名密码
+    static TestUserName = "1";
+    static TestPassword = "1";
+
+    //主背景色 灰色
+    static BackgroundColor = "#F3F3F3";
+    static MainBlue = "#18B4FF";
+    static MainGreen = "#64D4D2";
+
+    //当前登录用户
+    static CurrentUser = {};
 }

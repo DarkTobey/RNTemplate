@@ -24,6 +24,23 @@ withHeaderOption = (titleText) => {
     }
 }
 
+withHeaderNoLeft = (titleText) => {
+    return {
+        headerTitle: titleText,
+        headerStyle: {
+            backgroundColor: 'white',
+            height: 45
+        },
+        headerTitleStyle: {
+            alignSelf: 'center',  //居左flex-start , 居中center
+            textAlign: 'center',
+        },
+        headerTintColor: 'black',
+        headerRight: <Text></Text>,
+        headerLeft: <Text></Text>,
+    }
+}
+
 module.exports = {
     Routers: [
         {
@@ -55,11 +72,6 @@ module.exports = {
             name: 'map',
             module: require('../views/demo/map'),
             option: withHeaderOption("地图"),
-        },
-        {
-            name: 'scancode',
-            module: require('../views/demo/scancode'),
-            option: withHeaderOption("扫码"),
         },
         {
             name: 'login',

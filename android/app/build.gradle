@@ -146,17 +146,20 @@ android {
     }
 }
 
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
 dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
-    compile 'com.alibaba:fastjson:1.2.10'        // fastjson json反序列化工具
-    compile project(':react-native-image-picker')
-    compile project(':react-native-amap3d')
-    compile project(':react-native-camera')
+    compile project(':react-native-vector-icons')           // 常用图标
+    compile project(':react-native-image-picker')           // 图片选择
+    compile project(':react-native-camera')                 // 像机,二维码
+    compile project(':react-native-amap3d')                 // 地图
+    compile 'com.alibaba:fastjson:1.2.10'                   // fastjson json反序列化工具
     compile 'com.amap.api:search:latest.integration'        // 搜索
     compile 'com.amap.api:location:latest.integration'      // 定位
-    //compile 'com.amap.api:navi-3dmap:latest.integration'    // 导航(引入RN高德地图时已经导入)
+    //compile 'com.amap.api:navi-3dmap:latest.integration'  // 导航(引入RN高德地图时已经导入)
 }
 
 // Run this once to be able to run the application with BUCK

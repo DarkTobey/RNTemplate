@@ -211,12 +211,12 @@ export default class Http {
                 var result = JSON.parse(responseText);
                 if (result == null) {
                     if (showAlert) {
-                        Toast.info("已经是最新版本! ver:" + d.versionName, 4, null, false);
+                        Toast.info("已经是最新版本! ver:" + d.versionName, 2, null, false);
                     }
                     return;
                 }
                 if (result.Code == 500) {
-                    Toast.fail("获取数据失败," + result.Message, 4, null, false);
+                    Toast.fail("获取数据失败," + result.Message, 3, null, false);
                     return;
                 }
                 Modal.alert('发现新版本 ver:' + result.VersionName, "更新说明:" + result.UpdateContent, [
