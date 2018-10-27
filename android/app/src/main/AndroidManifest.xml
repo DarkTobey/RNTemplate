@@ -40,8 +40,6 @@
 
         <service android:name="com.amap.api.location.APSService" />
         <service android:name="android_upgrade.DownloadService" />
-        <service android:name="headless_js.MyTaskService" />
-        <receiver android:name="headless_js.MyReceiver" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

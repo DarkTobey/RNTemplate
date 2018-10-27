@@ -106,6 +106,11 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        manifestPlaceholders = [
+            JPUSH_PKGNAME : applicationId,
+            JPUSH_APPKEY : "4e7141b568b05010ea802765",  //JPush 上注册的包名对应的 Appkey.
+            JPUSH_CHANNEL : "developer-default",        //暂时填写默认值即可.
+        ]
         multiDexEnabled true
     }
     signingConfigs {
@@ -157,8 +162,10 @@ dependencies {
     compile project(':react-native-camera')                 // 像机,二维码
     compile project(':react-native-amap3d')                 // 地图
     compile 'com.alibaba:fastjson:1.2.10'                   // fastjson json反序列化工具
-    compile 'com.amap.api:search:latest.integration'        // 搜索
-    compile 'com.amap.api:location:latest.integration'      // 定位
+    compile 'com.amap.api:search:6.1.0'                     // 搜索
+    compile 'com.amap.api:location:4.2.0'                   // 定位
+    compile 'cn.jiguang.sdk:jpush:3.1.6'                    // 此处以JPush 3.1.6 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.2.5'                    // 此处以JCore 1.2.5 版本为例。
     //compile 'com.amap.api:navi-3dmap:latest.integration'  // 导航(引入RN高德地图时已经导入)
 }
 

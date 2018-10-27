@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import android_upgrade.UpgradePackage;
+import cn.jpush.android.api.JPushInterface;
 import cn.qiuxiang.react.amap3d.AMap3DPackage;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -53,5 +54,7 @@ public class MainApplication extends Application implements ReactApplication {
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 }
